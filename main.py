@@ -91,17 +91,23 @@ def end_screen(win, elapsed_time, targets_pressed, clicks):
     accuracy = round(targets_pressed/clicks * 100, 1)
     accuracy_label = LABEL_FONT.render(f"Accuracy: {accuracy}%", 1, "white")
 
+    restart_label = LABEL_FONT.render("Press r to restart", 1, "white")
+
     win.blit(time_label, (get_middle(time_label), 100))
     win.blit(speed_label, (get_middle(speed_label), 200))
     win.blit(hits_label, (get_middle(hits_label), 300))
     win.blit(accuracy_label, (get_middle(accuracy_label), 400))
+    win.blit(restart_label, (get_middle(restart_label), 500))
 
     pygame.display.update()
     run = True
     while run:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT or event.type == pygame.KEYDOWN:
+            if event.type == pygame.QUIT:
                 quit()
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_r:
+                    main()
             
 
 
@@ -145,7 +151,8 @@ def main():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 click = True
                 clicks_made += 1
-
+            
+            
         for t in targets:
             t.update()
 
